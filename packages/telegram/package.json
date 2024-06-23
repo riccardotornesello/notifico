@@ -1,0 +1,12 @@
+{
+  "name": "@repo/telegram",
+  "version": "0.0.0",
+  "scripts": {},
+  "exports": {
+    "./test": "./src/test.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "typescript": "latest"
+  }
+}
