@@ -1,6 +1,6 @@
-import { Controller, Get, Inject, Body } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
@@ -11,7 +11,7 @@ export class AppController {
   ) {}
 
   @Get()
-  async testCall(@Body() body: any) {
+  async testCall() {
     this.telegramClient.emit('new_message', { test: 1 });
     this.discordClient.emit('new_message', { test: 1 });
   }

@@ -1,21 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
+import mikroOrmConfig from './mikro-orm.config';
 
 @Module({
   imports: [
+    MikroOrmModule.forRoot({
+      ...mikroOrmConfig,
+      entities: undefined,
+      autoLoadEntities: true,
+    }),
     ClientsModule.register([
-      // {
-      //   name: 'TELEGRAM_SERVICE',
-      //   transport: Transport.KAFKA,
-      //   options: {
-      //     client: {
-      //       clientId: 'hero',
-      //       brokers: ['localhost:9092'],
-      //     },
-      //   },
-      // },
       {
         name: 'TELEGRAM_SERVICE',
         transport: Transport.RMQ,
@@ -39,6 +37,7 @@ import { AppService } from './app.service';
         },
       },
     ]),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
