@@ -5,6 +5,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import mikroOrmConfig from './mikro-orm.config';
 
 @Module({
@@ -42,6 +43,7 @@ import mikroOrmConfig from './mikro-orm.config';
       },
     ]),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
