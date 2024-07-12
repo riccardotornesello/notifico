@@ -3,7 +3,7 @@ import { PrimaryKey, Property } from '@mikro-orm/core';
 
 export abstract class CustomBaseEntity {
   @PrimaryKey()
-  uuid = v4();
+  id = v4();
 
   @Property()
   createdAt = new Date();
