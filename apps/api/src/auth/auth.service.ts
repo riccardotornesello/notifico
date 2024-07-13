@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/sqlite';
-import { LoadStrategy } from '@mikro-orm/core';
+import { LoadStrategy, EntityRepository } from '@mikro-orm/core';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/entities/user.entity';
 import { SignUpDto } from './dto/signup';
