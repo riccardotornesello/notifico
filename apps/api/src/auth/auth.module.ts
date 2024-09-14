@@ -9,5 +9,6 @@ import { Token } from './entities/token.entity';
   imports: [MikroOrmModule.forFeature({ entities: [Token] }), UsersModule],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

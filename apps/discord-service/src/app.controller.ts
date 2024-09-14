@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  // TODO: use constants and types for event names and payloads
   @EventPattern('new_message')
   async newMessage(@Payload() data: any) {
     console.log('new_message', data);
