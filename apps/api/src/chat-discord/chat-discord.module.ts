@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { DiscordService } from './discord.service';
+import { ChatDiscordService } from './chat-discord.service';
 import { DiscordWebhookBot } from './entities/discord-webhook-bot.entity';
 
 // TODO: variable service configuration
@@ -23,7 +23,7 @@ import { DiscordWebhookBot } from './entities/discord-webhook-bot.entity';
       },
     ]),
   ],
-  providers: [DiscordService],
-  exports: [DiscordService],
+  providers: [ChatDiscordService],
+  exports: [ChatDiscordService],
 })
-export class DiscordModule {}
+export class ChatDiscordModule {}

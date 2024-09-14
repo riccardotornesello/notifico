@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { DiscordModule } from './discord/discord.module';
+import { ChatDiscordModule } from './chat-discord/chat-discord.module';
 import { ChatService } from './chat/chat.service';
 import { ChatModule } from './chat/chat.module';
 import mikroOrmConfig from './mikro-orm.config';
@@ -22,7 +22,7 @@ import mikroOrmConfig from './mikro-orm.config';
     }),
     UsersModule,
     AuthModule,
-    DiscordModule,
+    ChatDiscordModule,
     ChatModule,
   ],
   controllers: [AppController],

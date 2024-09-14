@@ -10,7 +10,7 @@ import {
 } from '@repo/discord-utils/constants';
 
 @Injectable()
-export class DiscordService {
+export class ChatDiscordService {
   constructor(
     @Inject('DISCORD_SERVICE')
     private discordServiceClient: ClientProxy,

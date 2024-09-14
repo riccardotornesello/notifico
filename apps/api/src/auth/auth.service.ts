@@ -43,7 +43,7 @@ export class AuthService {
    */
   async generateToken(
     userId: string,
-    duration: number,
+    duration: number = 60 * 60 * 24 * 7,
   ): Promise<[string, string]> {
     const id = generateRandomString(8);
     const secret = generateRandomString(30);
