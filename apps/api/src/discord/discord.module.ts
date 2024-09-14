@@ -4,6 +4,8 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { DiscordService } from './discord.service';
 import { DiscordWebhookBot } from './entities/discord-webhook-bot.entity';
 
+// TODO: variable service configuration
+
 @Module({
   imports: [
     MikroOrmModule.forFeature([DiscordWebhookBot]),

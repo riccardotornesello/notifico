@@ -6,6 +6,7 @@ import { User } from 'src/users/entities/user.entity';
 import { SignUpDto } from './dto/signup';
 import { Token } from './entities/token.entity';
 import { hash, compareHash } from '../common/hash';
+import { generateRandomString } from 'src/common/random';
 
 @Injectable()
 export class AuthService {
@@ -33,17 +34,27 @@ export class AuthService {
     });
   }
 
-  async generateToken(userId: string): Promise<[string, string]> {
-    // TODO: better random generation
-    // TODO: check if token is saved in the database
-
-    const id = Math.random().toString(36).substring(7);
-    const secret = Math.random().toString(36).substring(7);
+  /**
+   * Generate a token for a user
+   *
+   * @param userId ID of the user to generate a token for
+   * @param duration Duration in seconds for which the token should be valid
+   * @returns A tuple containing the token ID and the secret
+   */
+  async generateToken(
+    userId: string,
+    duration: number,
+  ): Promise<[string, string]> {
+    const id = generateRandomString(8);
+    const secret = generateRandomString(30);
+    const hashedSecret = await hash(secret);
+    const expiresAt = new Date(Date.now() + duration * 1000);
 
     await this.tokenRepository.insert({
       id,
-      secret: await hash(secret),
+      secret: hashedSecret,
       user: userId,
+      expiresAt,
     });
 
     return [id, secret];
@@ -56,10 +67,17 @@ export class AuthService {
       { populate: ['user'], strategy: LoadStrategy.JOINED },
     );
 
+    // Check if a token with the given ID exists
     if (!tokenEntity) {
       return null;
     }
 
+    // Check if the token has expired
+    if (tokenEntity.expiresAt < new Date()) {
+      return null;
+    }
+
+    // Check if the secret is valid
     const isSecretValid = await compareHash(secret, tokenEntity.secret);
     if (!isSecretValid) {
       return null;

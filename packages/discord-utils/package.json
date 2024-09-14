@@ -1,0 +1,12 @@
+{
+  "name": "@repo/discord-utils",
+  "version": "0.0.0",
+  "scripts": {},
+  "exports": {
+    "./constants": "./src/constants.ts"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "*",
+    "typescript": "latest"
+  }
+}

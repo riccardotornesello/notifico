@@ -1,10 +1,10 @@
 import { Entity, Property, ManyToOne, PrimaryKey } from '@mikro-orm/core';
 import { User } from '../../users/entities/user.entity';
 
+// TODO: periodically clean up expired tokens
+
 @Entity()
 export class Token {
-  // TODO: expiration date
-
   @PrimaryKey()
   id: string;
 
@@ -13,4 +13,10 @@ export class Token {
 
   @ManyToOne()
   user: User;
+
+  @Property()
+  createdAt = new Date();
+
+  @Property()
+  expiresAt: Date;
 }

@@ -1,14 +1,16 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern, Payload } from '@nestjs/microservices';
-import { AppService } from './app.service';
+import {
+  DiscordEvent,
+  DiscordNewMessageBody,
+} from '@repo/discord-utils/constants';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
-  // TODO: use constants and types for event names and payloads
-  @EventPattern('new_message')
-  async newMessage(@Payload() data: any) {
+  @EventPattern(DiscordEvent.NEW_MESSAGE)
+  async newMessage(@Payload() data: DiscordNewMessageBody) {
     console.log('new_message', data);
   }
 }

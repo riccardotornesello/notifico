@@ -4,12 +4,16 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository, Reference } from '@mikro-orm/core';
 import { DiscordWebhookBot } from './entities/discord-webhook-bot.entity';
 import { User } from '../users/entities/user.entity';
+import {
+  DiscordEvent,
+  DiscordNewMessageBody,
+} from '@repo/discord-utils/constants';
 
 @Injectable()
 export class DiscordService {
   constructor(
     @Inject('DISCORD_SERVICE')
-    private client: ClientProxy,
+    private discordServiceClient: ClientProxy,
     @InjectRepository(DiscordWebhookBot)
     private readonly discordWebhookBotRepository: EntityRepository<DiscordWebhookBot>,
   ) {}
@@ -35,7 +39,8 @@ export class DiscordService {
   async sendMessage(message: string, userId: string): Promise<void> {
     const bots = await this.getUserBots(userId);
     for (const bot of bots) {
-      this.client.emit('new_message', { message, token: bot.token });
+      const data: DiscordNewMessageBody = { message, token: bot.token };
+      this.discordServiceClient.emit(DiscordEvent.NEW_MESSAGE, data);
     }
   }
 }
